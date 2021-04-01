@@ -1,0 +1,75 @@
+<div class="container-fluid height-100 main-container">
+  <div class="row justify-content-md-center align-items-start height-100">
+    <div class="col col-lg-6 height-100 bloc-principal bloc-gauche">
+      <form class="example-form">
+        <div class="picker">
+          <mat-form-field class="example-full-width">
+            <mat-label>Carte 1</mat-label>
+            <input type="text" matInput [formControl]="carte1Control" [matAutocomplete]="carte1">
+            <mat-autocomplete #carte1="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
+              <mat-option *ngFor="let option of carte1FilteredOptions | async" [value]="option">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <br>
+        <div class="picker">
+          <mat-form-field class="example-full-width">
+            <mat-label>Carte 2</mat-label>
+            <input type="text" matInput [formControl]="carte2Control" [matAutocomplete]="carte2">
+            <mat-autocomplete #carte2="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
+              <mat-option *ngFor="let option of carte2FilteredOptions | async" [value]="option">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <br>
+        <div class="picker">
+          <mat-form-field class="example-full-width">
+            <mat-label>Carte 3</mat-label>
+            <input type="text" matInput [formControl]="carte3Control" [matAutocomplete]="carte3">
+            <mat-autocomplete #carte3="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
+              <mat-option *ngFor="let option of carte3FilteredOptions | async" [value]="option">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <br>
+        <div class="picker">
+          <mat-form-field class="example-full-width">
+            <mat-label>Carte 4</mat-label>
+            <input type="text" matInput [formControl]="carte4Control" [matAutocomplete]="carte4">
+            <mat-autocomplete #carte4="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
+              <mat-option *ngFor="let option of carte4FilteredOptions | async" [value]="option">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <br>
+        <div class="picker">
+          <mat-form-field class="example-full-width">
+            <mat-label>Carte 5</mat-label>
+            <input type="text" matInput [formControl]="carte5Control" [matAutocomplete]="carte5">
+            <mat-autocomplete #carte5="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
+              <mat-option *ngFor="let option of carte5FilteredOptions | async" [value]="option">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <br>
+
+      </form>
+    </div>
+    <div class="col col-lg-2 height-100">
+      <button (click)="find()" style="height: 800px">RECHERCHER</button>
+    </div>
+    <div class="col col-lg-4 height-100 bloc-principal block-droite">
+      Résultat : {{results}}
+    </div>
+  </div>
+</div>

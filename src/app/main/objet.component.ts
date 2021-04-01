@@ -3,9 +3,9 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css'],
+  selector: 'app-objet',
+  templateUrl: './objet.component.html',
+  styleUrls: ['./objet.component.css'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0'})),
@@ -14,7 +14,7 @@ import {MatTableDataSource} from '@angular/material/table';
     ]),
   ],
 })
-export class MainComponent {
+export class ObjetComponent {
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   columnsToDisplay = ['name', 'level', 'type'];
   expandedElement: Item | null;
