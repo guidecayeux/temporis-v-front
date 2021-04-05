@@ -1,0 +1,72 @@
+
+
+.filter {
+  background-color: #313131;
+  padding-left: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  display: inline-block;
+  position: relative;
+}
+
+.input-filter {
+  width: 80%;
+  color: white;
+  font-size: 1.5em;
+}
+
+.button-search {
+  vertical-align: middle;
+  margin: auto;
+  height: 40px;
+}
+
+.main-table {
+  margin-top: 20px;
+  background-color: #313131;
+  width: 90%;
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header {
+  text-align: center;
+}
+
+table {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tr-content {
+  border-bottom: solid;
+  border-width: 1px;
+}
+
+td {
+  height: 50px;
+}
+
+th {
+  padding-top: 20px;
+}
+
+header, .row {
+  display: flex;  /* aligns all child elements (flex items) in a row */
+}
+
+
+.button-navigation {
+  display: flow-root;
+}
+.button-navigation  button{
+  margin: 20px;
+}
+
+.floatright {
+  display: block;
+  float: right;
+}

@@ -1,0 +1,44 @@
+
+table {
+  width: 100%;
+}
+
+.mat-cell, .mat-header-cell {
+  color: white;
+}
+
+.header-table, tr.element-row {
+  background-color: #313131;
+}
+
+.mat-header-cell{
+  font-size: 2em;
+  font-weight: bold;
+}
+
+tr.element-row {
+  cursor: pointer;
+}
+
+tr.detail-row {
+  height: 0;
+  background-color: #363636;
+}
+
+tr.element-row:not(.expanded-row):hover, tr.element-row:not(.expanded-row):active {
+  background: #363636;
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.element-detail > div {
+  padding-top: 10px;
+}
+

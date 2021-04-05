@@ -1,34 +1,44 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './header/header.component';
+import {AppComponent} from './app.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HeaderComponent} from './header/header.component';
 import {AppRoutingModule} from './app-routing.module';
-import { ObjetComponent } from './main/objet.component';
-import { AdminComponent } from './admin/admin.component';
-import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {ListeObjetsComponent} from './liste-objets/liste-objets.component';
+import {AdminComponent} from './admin/admin.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import { LayoutComponent } from './layout/layout.component';
-import { AjouterRecetteComponent } from './ajouter-recette/ajouter-recette.component';
-import { RecettesComponent } from './recettes/recettes.component';
+import {LayoutComponent} from './layout/layout.component';
+import {AjouterRecetteComponent} from './ajouter-recette/ajouter-recette.component';
+import {RechercherRecettesComponent} from './rechercher-recettes/rechercher-recettes.component';
 import {MatOptionModule} from '@angular/material/core';
-import {ReactiveFormsModule} from '@angular/forms';
-import {MatAutocomplete, MatAutocompleteModule} from '@angular/material/autocomplete';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatButtonModule} from '@angular/material/button';
+import {HttpClientModule} from '@angular/common/http';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {RechercherObjetComponent} from './rechercher-objet/rechercher-objet.component';
+import { ListeRecettesComponent } from './liste-recettes/liste-recettes.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ObjetComponent,
+    ListeObjetsComponent,
     AdminComponent,
     LayoutComponent,
     AjouterRecetteComponent,
-    RecettesComponent
+    RechercherRecettesComponent,
+    RechercherObjetComponent,
+    ListeRecettesComponent
   ],
   imports: [
     BrowserModule,
@@ -41,11 +51,18 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     MatInputModule,
     MatAutocompleteModule,
     MatOptionModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule,
+    HttpClientModule,
+    MatMenuModule,
+    FormsModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatTooltipModule
   ],
-  providers: [
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

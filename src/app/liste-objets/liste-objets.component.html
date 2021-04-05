@@ -1,0 +1,46 @@
+<div class="filter row">
+  <mat-form-field class="input-filter">
+    <mat-label>Filtre</mat-label>
+    <input matInput value="Filtre" [(ngModel)]="filtre">
+  </mat-form-field>
+  <button mat-flat-button class="button-search" (click)="filter()">Filtrer</button>
+</div>
+
+
+<div class="main-table">
+  <table>
+    <thead>
+    <tr>
+      <th class="header" *ngFor="let column of columnsToDisplay">{{column}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let element of dataSource" class="tr-content">
+      <td>
+        <img [src]="element.img" alt="logo">
+      </td>
+      <td>
+        <a [routerLink]="'/rechercher-objet'" [queryParams]="{id: element.id}">{{element.name}}</a>
+      </td>
+      <td>
+        {{element.lvl}}
+      </td>
+      <td>
+        {{element.type}}
+      </td>
+      <td>
+        {{element.nbRecette}}
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="button-navigation">
+    <div class="floatright">
+      <button mat-flat-button (click)="previousPage()" [disabled]="currentMaxItem <= numberMax">Page précédente</button>
+      <button mat-flat-button (click)="nextPage()" [disabled]="currentMaxItem >= currentPool.length - numberMax">Page suivante</button>
+    </div>
+  </div>
+
+</div>
+
+

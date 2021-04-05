@@ -1,21 +1,23 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {ObjetComponent} from './main/objet.component';
+import {ListeObjetsComponent} from './liste-objets/liste-objets.component';
 import {AdminComponent} from './admin/admin.component';
 import {LayoutComponent} from './layout/layout.component';
 import {AjouterRecetteComponent} from './ajouter-recette/ajouter-recette.component';
-import {RecettesComponent} from './recettes/recettes.component'; // CLI imports router
+import {RechercherRecettesComponent} from './rechercher-recettes/rechercher-recettes.component';
+import {RechercherObjetComponent} from './rechercher-objet/rechercher-objet.component'; // CLI imports router
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
     children: [
-      {path: 'objets', component: ObjetComponent},
-      {path: 'recettes', component: RecettesComponent},
+      {path: 'rechercher-objet', component: RechercherObjetComponent},
+      {path: 'rechercher-recettes', component: RechercherRecettesComponent},
       {path: 'ajouter-recette', component: AjouterRecetteComponent},
+      {path: 'objets', component: ListeObjetsComponent},
       {path: 'admin', component: AdminComponent},
-      {path: '**', redirectTo: 'objets'}
+      {path: '**', redirectTo: 'rechercher-objet'}
     ]
   }
 ]; // sets up routes constant where you define your routes

@@ -1,0 +1,32 @@
+<div class="picker">
+  <div class="search row">
+    <mat-form-field class="col-lg-10">
+      <mat-label class="toto">Rechercher un objet</mat-label>
+      <input type="text" matInput [formControl]="objetControl" [matAutocomplete]="carte1">
+      <mat-autocomplete #carte1="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
+        <mat-option *ngIf="isLoading" class="is-loading">
+          <mat-spinner diameter="20"></mat-spinner>
+        </mat-option>
+        <ng-container *ngIf="!isLoading">
+          <mat-option *ngFor="let option of objetFilteredOptions" [value]="option">
+            {{option.name}}
+          </mat-option>
+        </ng-container>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div class="col-lg-2">
+      <div class="middle-section">
+        <div class="middle-wrapper">
+          <button mat-flat-button (click)="rechercher()" class="search-button">Rechercher</button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="results">
+  <app-liste-recettes [dataSource]="dataSource" [withFilter]="false"></app-liste-recettes>
+</div>

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import {User} from '../recettes/recettes.component';
+import {User} from '../rechercher-recettes/rechercher-recettes.component';
 
 @Component({
   selector: 'app-ajouter-recette',
@@ -147,12 +147,19 @@ export class AjouterRecetteComponent implements OnInit {
     return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
-  find() {
-    this.results = 'liste des cartes' + ' ' +
+  ajouterRecette(): void {
+    this.results = 'Objet' + ' ' +
+      this.objetControl.value?.id + ' ' +
+      'liste des cartes' + ' ' +
       this.carte1Control.value?.id + ' ' +
       this.carte2Control.value?.id + ' ' +
       this.carte3Control.value?.id + ' ' +
       this.carte4Control.value?.id + ' ' +
       this.carte5Control.value?.id;
+  }
+
+  ajouterObjet() {
+    console.log('alo', );
+
   }
 }

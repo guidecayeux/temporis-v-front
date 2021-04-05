@@ -2,7 +2,26 @@
   font-size: 4em;
 }
 .picker {
-  font-size: 2em;
+  font-size: 1.5em;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ajouter-recette{
+  height:60px !important;
+  width:200px !important;
+  font-size:48px !important;
+}
+
+.ajouter-objet {
+  margin-left: 20px;
+  vertical-align: middle;
+  height: 50px;
+}
+
+.icon-ajout-objet {
+  font-size: 40px;
 }
 
 .main-container {
@@ -10,14 +29,17 @@
   margin-top: 20px
 }
 
-.example-form {
+.form {
   min-width: 150px;
-  max-width: 500px;
   width: 100%;
 }
 
-.example-full-width {
+.full-width {
   width: 100%;
+}
+
+.width-80 {
+  width: 80%;
 }
 
 .height-100 {
@@ -31,13 +53,13 @@
 }
 
 .bloc-principal {
-  background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 30px;
-  padding: 20px;
+  background-color: #313131;
   color: white;
 }
 
-.bloc-gauche {
+.row {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 
