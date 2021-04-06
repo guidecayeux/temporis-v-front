@@ -27,6 +27,10 @@ import { ListeRecettesComponent } from './liste-recettes/liste-recettes.componen
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { AjouterObjetComponent } from './ajouter-objet/ajouter-objet.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -38,7 +42,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     AjouterRecetteComponent,
     RechercherRecettesComponent,
     RechercherObjetComponent,
-    ListeRecettesComponent
+    ListeRecettesComponent,
+    AjouterObjetComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +64,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

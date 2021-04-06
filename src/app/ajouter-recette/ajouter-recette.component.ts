@@ -1,8 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormControl, NgForm} from '@angular/forms';
+import {forkJoin, Observable, of} from 'rxjs';
+import {debounceTime, finalize, map, startWith, switchMap, tap} from 'rxjs/operators';
 import {User} from '../rechercher-recettes/rechercher-recettes.component';
+import {isAdding} from '../util';
+import {Carte, Objet} from '../modele';
+import {CartesService} from '../cartes.service';
+import {ObjetsService} from '../objets.service';
+import {RecettesService} from '../recettes.service';
+import {MatDialog} from '@angular/material/dialog';
+import {AjouterObjetComponent} from '../ajouter-objet/ajouter-objet.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-ajouter-recette',
@@ -10,122 +18,79 @@ import {User} from '../rechercher-recettes/rechercher-recettes.component';
   styleUrls: ['./ajouter-recette.component.css']
 })
 export class AjouterRecetteComponent implements OnInit {
-  objetControl = new FormControl();
-  carte1Control = new FormControl();
-  carte2Control = new FormControl();
-  carte3Control = new FormControl();
-  carte4Control = new FormControl();
-  carte5Control = new FormControl();
 
-  objets: any[] = [
+  @ViewChild('recetteForm') recetteForm: NgForm;
+
+  isAdding = isAdding;
+
+  objetControl: { control: FormControl, filterControl: any[] } = {
+    control: new FormControl(),
+    filterControl: []
+  };
+
+  cartesControls: { control: FormControl, filterControl: Observable<Carte[]> }[] = [
     {
-      id: 1,
-      name: 'Coiffe bouftou',
-      level: 20,
-      type: 'Chapeau'
-    },
-    {
-      id: 2,
-      name: 'Cape bouftou',
-      level: 30,
-      type: 'Cape'
-    },
-    {
-      id: 3,
-      name: 'Ferme la',
-      level: 1,
-      type: 'Autre'
+      control: new FormControl(),
+      filterControl: undefined
+    }, {
+      control: new FormControl(),
+      filterControl: undefined
+    }, {
+      control: new FormControl(),
+      filterControl: undefined
+    }, {
+      control: new FormControl(),
+      filterControl: undefined
+    }, {
+      control: new FormControl(),
+      filterControl: undefined
     }
   ];
 
-  options: User[] = [
-    {
-      id: 1,
-      name: 'Mary eza'
-    },
-    {
-      id: 2,
-      name: 'Shelley'
-    },
-    {
-      id: 3,
-      name: 'Igor'
-    },
-    {
-      id: 4,
-      name: 'George'
-    },
-    {
-      id: 5,
-      name: 'Baptiste'
-    },
-    {
-      id: 6,
-      name: 'Guillaume'
-    },
-    {
-      id: 7,
-      name: 'Rémi'
-    },
-    {
-      id: 8,
-      name: 'Tatalie'
-    }
-  ];
-  objetFilteredOptions: Observable<any[]>;
-  carte1FilteredOptions: Observable<User[]>;
-  carte2FilteredOptions: Observable<User[]>;
-  carte3FilteredOptions: Observable<User[]>;
-  carte4FilteredOptions: Observable<User[]>;
-  carte5FilteredOptions: Observable<User[]>;
+  objets: Objet[] = [];
+
+  optionsCartes: Carte[] = [];
+
   public results: string;
+  public isLoading = false;
+  public addLoading = false;
+  public formulaireNonvalid = false;
 
-  constructor() {
+
+  constructor(
+    private cartesService: CartesService,
+    private objetsService: ObjetsService,
+    private recettesService: RecettesService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) {
   }
 
   ngOnInit(): void {
+    this.cartesService.getCartes().subscribe(cartes => {
+      this.optionsCartes = cartes;
+      this.objetControl.control.valueChanges
+        .pipe(
+          debounceTime(300),
+          tap(() => this.isLoading = true),
+          switchMap(value => (value?.length > 2 ? this.objetsService.autoComplete(value) : of([]))
+            .pipe(
+              finalize(() => this.isLoading = false),
+            )
+          )
+        ).subscribe(items => this.objetControl.filterControl = items);
 
-    this.objetFilteredOptions = this.objetControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter_objet(name) : this.objets.slice())
-      );
+      this.cartesControls.forEach(control => {
 
-    this.carte1FilteredOptions = this.carte1Control.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter_option(name) : this.options.slice())
-      );
-
-    this.carte2FilteredOptions = this.carte2Control.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter_option(name) : this.options.slice())
-      );
-
-    this.carte3FilteredOptions = this.carte3Control.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter_option(name) : this.options.slice())
-      );
-
-    this.carte4FilteredOptions = this.carte4Control.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter_option(name) : this.options.slice())
-      );
-
-    this.carte5FilteredOptions = this.carte5Control.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter_option(name) : this.options.slice())
-      );
+        control.filterControl = control.control.valueChanges
+          .pipe(
+            debounceTime(200),
+            startWith(''),
+            map(value => typeof value === 'string' ? value : value.name),
+            map(name => name ? this._filter_cartes(name) : this.optionsCartes.slice())
+          );
+      });
+    });
 
   }
 
@@ -133,33 +98,73 @@ export class AjouterRecetteComponent implements OnInit {
     return user && user.name ? user.name : '';
   }
 
-  private _filter_objet(name: string): User[] {
+  private _filter_cartes(name: string): User[] {
     const filterValue = name.toLowerCase();
 
-    return this.objets.filter(option => option.name.toLowerCase().includes(filterValue)
-      || option.type.toLowerCase().includes(filterValue)
-      || option.level.toString().toLowerCase().includes(filterValue));
-  }
-
-  private _filter_option(name: string): User[] {
-    const filterValue = name.toLowerCase();
-
-    return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+    return this.optionsCartes.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
   ajouterRecette(): void {
-    this.results = 'Objet' + ' ' +
-      this.objetControl.value?.id + ' ' +
-      'liste des cartes' + ' ' +
-      this.carte1Control.value?.id + ' ' +
-      this.carte2Control.value?.id + ' ' +
-      this.carte3Control.value?.id + ' ' +
-      this.carte4Control.value?.id + ' ' +
-      this.carte5Control.value?.id;
+    this.formulaireNonvalid = false;
+    if (this.isFormulaireValid()) {
+      this.addLoading = true;
+      const listAjoutCarte = [];
+
+      this.cartesControls.forEach(control => {
+        if (this.isAdding(control.control.value)) {
+          listAjoutCarte.push(this.cartesService.addCarte(control.control.value));
+        } else {
+          listAjoutCarte.push(of(control.control.value));
+        }
+      });
+
+      forkJoin(...listAjoutCarte).subscribe(results => {
+        this.recettesService.ajoutRecette({
+          idObjet: this.objetControl.control.value.id,
+          idCarte1: results[0].id,
+          idCarte2: results[1].id,
+          idCarte3: results[2].id,
+          idCarte4: results[3].id,
+          idCarte5: results[4].id
+        }).subscribe(() => {
+          this.snackBar.open('Ajout effectué', '', {
+            duration: 2000,
+          });
+          this.addLoading = false;
+          this.objetControl.control.setValue(undefined);
+          this.cartesControls.forEach(control => {
+            control.control.setValue('');
+          });
+        }, (err) => {
+          console.log(`erreur lors de l'ajout de recette`, err);
+          this.snackBar.open(`Erreur lors de l'ajout`, '', {
+            duration: 5000,
+          });
+          this.addLoading = false;
+        });
+      }, (err) => {
+        console.log(`erreur lors de l'ajout de carte`, err);
+        this.snackBar.open(`Erreur lors de l'ajout`, '', {
+          duration: 5000,
+        });
+        this.addLoading = false;
+      });
+    } else {
+      this.formulaireNonvalid = true;
+    }
   }
 
-  ajouterObjet() {
-    console.log('alo', );
+  ajouterObjet(): void {
+    const dialogRef = this.dialog.open(AjouterObjetComponent);
 
+    dialogRef.afterClosed().subscribe(result => {
+      this.objetControl.control.setValue(result);
+    });
+  }
+
+  private isFormulaireValid(): boolean {
+    return this.objetControl.control.valid && this.objetControl.control.value.id
+      && this.cartesControls[0].control.valid && this.cartesControls[1].control.valid
+      && this.cartesControls[2].control.valid && this.cartesControls[3].control.valid && this.cartesControls[4].control.valid;
   }
 }

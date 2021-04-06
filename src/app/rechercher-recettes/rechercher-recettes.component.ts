@@ -1,9 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import {debounce, debounceTime, map, startWith} from 'rxjs/operators';
 import {MatTableDataSource} from '@angular/material/table';
-import {Card} from '../modele';
+import {Carte, Objet} from '../modele';
+import {RecettesService} from '../recettes.service';
+import {CartesService} from '../cartes.service';
+import {isAdding} from '../util';
 
 export interface User {
   id: number;
@@ -16,150 +19,75 @@ export interface User {
   styleUrls: ['./rechercher-recettes.component.css']
 })
 export class RechercherRecettesComponent implements OnInit {
+  isAdding = isAdding;
+
   carte1Control = new FormControl();
   carte2Control = new FormControl();
   carte3Control = new FormControl();
   carte4Control = new FormControl();
   carte5Control = new FormControl();
 
-  options: Card[] = [];
-  carte1FilteredOptions: Observable<Card[]>;
-  carte2FilteredOptions: Observable<Card[]>;
-  carte3FilteredOptions: Observable<Card[]>;
-  carte4FilteredOptions: Observable<Card[]>;
-  carte5FilteredOptions: Observable<Card[]>;
+  options: Carte[] = [];
+
+  carte1FilteredOptions: Observable<Carte[]>;
+  carte2FilteredOptions: Observable<Carte[]>;
+  carte3FilteredOptions: Observable<Carte[]>;
+  carte4FilteredOptions: Observable<Carte[]>;
+  carte5FilteredOptions: Observable<Carte[]>;
   public results: string;
 
-  dataSource = new MatTableDataSource([{
-    img: 'https://cdn.discordapp.com/attachments/393488773788336151/828288788425080893/Logo_Arme_x20.png',
-    name: 'Coiffe du bouftou numéro ',
-    lvl: 30,
-    type: 'cape',
-    id: 1,
-    combinaisons: [{
-      cards: [{
-        id: 1,
-        name: 'carte A'
-      }, {
-        id: 2,
-        name: 'carte B'
-      }, {
-        id: 3,
-        name: 'carte C'
-      }, {
-        id: 4,
-        name: 'carte D'
-      }, {
-        id: 5,
-        name: 'carte E'
-      }]
-    }, {
-      cards: [{
-        id: 1,
-        name: 'carte A'
-      }, {
-        id: 2,
-        name: 'carte B'
-      }, {
-        id: 3,
-        name: 'carte C'
-      }, {
-        id: 4,
-        name: 'carte D'
-      }, {
-        id: 5,
-        name: 'carte E'
-      }]
-    }]
-  }, {
-    img: 'https://cdn.discordapp.com/attachments/393488773788336151/828288788425080893/Logo_Arme_x20.png',
-    name: 'Cape du bouftou',
-    lvl: 30,
-    type: 'cape',
-    id: 1,
-    combinaisons: [{
-      cards: [{
-        id: 1,
-        name: 'carte A'
-      }, {
-        id: 2,
-        name: 'carte B'
-      }, {
-        id: 3,
-        name: 'carte C'
-      }, {
-        id: 4,
-        name: 'carte D'
-      }, {
-        id: 5,
-        name: 'carte E'
-      }]
-    }, {
-      cards: [{
-        id: 1,
-        name: 'carte A'
-      }, {
-        id: 2,
-        name: 'carte B'
-      }, {
-        id: 3,
-        name: 'carte C'
-      }, {
-        id: 4,
-        name: 'carte D'
-      }, {
-        id: 5,
-        name: 'carte E'
-      }]
-    }]
-  }]);
+  dataSource = new MatTableDataSource([]);
 
-
-  constructor() {
-    for (let i = 0; i < 643; i++ ) {
-      this.options.push({
-        id: i,
-        name: 'carte numéro ' + i
-      });
-    }
+  constructor(
+    private recettesService: RecettesService,
+    private cartesService: CartesService,
+    ) {
   }
 
   ngOnInit(): void {
+    this.cartesService.getCartes().subscribe(cartes => {
+      this.options = cartes;
 
-    this.carte1FilteredOptions = this.carte1Control.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice())
-      );
+      this.carte1FilteredOptions = this.carte1Control.valueChanges
+        .pipe(
+          debounceTime(200),
+          startWith(''),
+          map(value => typeof value === 'string' ? value : value.name),
+          map(name => name ? this._filter(name) : this.options.slice())
+        );
 
-    this.carte2FilteredOptions = this.carte2Control.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice())
-      );
+      this.carte2FilteredOptions = this.carte2Control.valueChanges
+        .pipe(
+          debounceTime(200),
+          startWith(''),
+          map(value => typeof value === 'string' ? value : value.name),
+          map(name => name ? this._filter(name) : this.options.slice())
+        );
 
-    this.carte3FilteredOptions = this.carte3Control.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice())
-      );
+      this.carte3FilteredOptions = this.carte3Control.valueChanges
+        .pipe(
+          debounceTime(200),
+          startWith(''),
+          map(value => typeof value === 'string' ? value : value.name),
+          map(name => name ? this._filter(name) : this.options.slice())
+        );
 
-    this.carte4FilteredOptions = this.carte4Control.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice())
-      );
+      this.carte4FilteredOptions = this.carte4Control.valueChanges
+        .pipe(
+          debounceTime(200),
+          startWith(''),
+          map(value => typeof value === 'string' ? value : value.name),
+          map(name => name ? this._filter(name) : this.options.slice())
+        );
 
-    this.carte5FilteredOptions = this.carte5Control.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice())
-      );
+      this.carte5FilteredOptions = this.carte5Control.valueChanges
+        .pipe(
+          debounceTime(200),
+          startWith(''),
+          map(value => typeof value === 'string' ? value : value.name),
+          map(name => name ? this._filter(name) : this.options.slice())
+        );
+    });
 
   }
 
@@ -174,15 +102,30 @@ export class RechercherRecettesComponent implements OnInit {
   }
 
   find(): void {
-    this.results = 'liste des cartes' + ' ' +
-      this.carte1Control.value?.id + ' ' +
-      this.carte2Control.value?.id + ' ' +
-      this.carte3Control.value?.id + ' ' +
-      this.carte4Control.value?.id + ' ' +
-      this.carte5Control.value?.id;
-  }
+    const listId: number[] =  [];
 
-  isAdding(value: any): boolean {
-    return typeof value === 'string';
+    if (this.carte1Control.value && !isAdding(this.carte1Control.value)) {
+        listId.push(this.carte1Control.value.id);
+    }
+    if (this.carte2Control.value && !isAdding(this.carte2Control.value)) {
+        listId.push(this.carte2Control.value.id);
+    }
+    if (this.carte3Control.value && !isAdding(this.carte3Control.value)) {
+        listId.push(this.carte3Control.value.id);
+    }
+    if (this.carte4Control.value && !isAdding(this.carte4Control.value)) {
+        listId.push(this.carte4Control.value.id);
+    }
+    if (this.carte5Control.value && !isAdding(this.carte5Control.value)) {
+        listId.push(this.carte5Control.value.id);
+    }
+
+    this.recettesService.getRecettes({
+      idCartes: listId
+    }).subscribe(objets => {
+      this.dataSource = new MatTableDataSource<Objet>(objets);
+    }, err => {
+      console.log('error lors de la récupération des recettes', err);
+    });
   }
 }

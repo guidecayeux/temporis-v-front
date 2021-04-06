@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Item} from '../modele';
+import {Objet} from '../modele';
 import {ObjetsService} from '../objets.service';
 
 
@@ -10,9 +10,9 @@ import {ObjetsService} from '../objets.service';
 })
 export class ListeObjetsComponent implements OnInit, OnDestroy  {
   numberMax = 30;
-  dataSource: Item[] = [];
-  currentPool: Item[] = [];
-  listObjets: Item[] = [];
+  dataSource: Objet[] = [];
+  currentPool: Objet[] = [];
+  listObjets: Objet[] = [];
   currentMaxItem: number = this.numberMax;
 
   columnsToDisplay: string[] = ['', 'Nom', 'Niveau', 'Type', 'Nombre de recette'];

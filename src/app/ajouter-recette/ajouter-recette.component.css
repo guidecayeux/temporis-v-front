@@ -55,6 +55,7 @@
 .bloc-principal {
   background-color: #313131;
   color: white;
+  padding-top: 20px;
 }
 
 .row {
@@ -62,6 +63,7 @@
   padding-right: 20px;
 }
 
-
-.bloc-gauche {
+mat-spinner {
+  margin-left: auto;
+  margin-right: auto;
 }

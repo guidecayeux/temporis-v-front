@@ -9,7 +9,7 @@ export const environment = {
     },
     carte: {
       liste: 'http://localhost:3000/api/cartes/liste',
-      ajout: 'http://localhost:3000/api/cartes/ajout'
+      ajout: 'http://localhost:3000/api/cartes/add'
     },
     recette: {
       liste: 'http://localhost:3000/api/recettes/liste',

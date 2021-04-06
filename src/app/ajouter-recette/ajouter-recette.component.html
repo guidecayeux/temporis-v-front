@@ -2,14 +2,19 @@
   <div class="row justify-content-md-center align-items-start height-100">
     <div class="col col-lg-8 height-100 bloc-principal bloc-gauche">
       <div class="row">
-        <form class="form" (ngSubmit)="ajouterRecette()">
+
+        <form class="form" (ngSubmit)="ajouterRecette()" #recetteForm="ngForm">
           <div class="picker">
             <mat-form-field class="width-80">
               <mat-label>Objet</mat-label>
-              <input required type="text" matInput [formControl]="objetControl" [matAutocomplete]="objet">
+              <input required type="text" matInput [formControl]="objetControl.control" [matAutocomplete]="objet">
+              <mat-error *ngIf="objetControl.control.hasError('required')">
+                Champs obligatoire
+              </mat-error>
+              <mat-icon *ngIf="isAdding(objetControl.control.value)" matSuffix matTooltip="Veuillez choisir un objet" class="icon-add">warning</mat-icon>
               <mat-autocomplete #objet="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
-                <mat-option *ngFor="let option of objetFilteredOptions | async" [value]="option">
-                  {{option.name + ' Niveau ' + option.level + ' ; Type : ' + option.type}}
+                <mat-option *ngFor="let option of objetControl.filterControl" [value]="option">
+                  {{option.name + ' Niveau ' + option.lvl + ' ; Type : ' + option.type}}
                 </mat-option>
               </mat-autocomplete>
             </mat-form-field>
@@ -18,68 +23,36 @@
             </button>
           </div>
           <br>
-          <div class="picker">
-            <mat-form-field class="full-width">
-              <mat-label>Carte 1</mat-label>
-              <input required type="text" matInput [formControl]="carte1Control" [matAutocomplete]="carte1">
-              <mat-autocomplete #carte1="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
-                <mat-option *ngFor="let option of carte1FilteredOptions | async" [value]="option">
-                  {{option.name}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </div>
-          <br>
-          <div class="picker">
-            <mat-form-field class="full-width">
-              <mat-label>Carte 2</mat-label>
-              <input required type="text" matInput [formControl]="carte2Control" [matAutocomplete]="carte2">
-              <mat-autocomplete #carte2="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
-                <mat-option *ngFor="let option of carte2FilteredOptions | async" [value]="option">
-                  {{option.name}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </div>
-          <br>
-          <div class="picker">
-            <mat-form-field class="full-width">
-              <mat-label>Carte 3</mat-label>
-              <input required type="text" matInput [formControl]="carte3Control" [matAutocomplete]="carte3">
-              <mat-autocomplete #carte3="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
-                <mat-option *ngFor="let option of carte3FilteredOptions | async" [value]="option">
-                  {{option.name}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </div>
-          <br>
-          <div class="picker">
-            <mat-form-field class="full-width">
-              <mat-label>Carte 4</mat-label>
-              <input required type="text" matInput [formControl]="carte4Control" [matAutocomplete]="carte4">
-              <mat-autocomplete #carte4="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
-                <mat-option *ngFor="let option of carte4FilteredOptions | async" [value]="option">
-                  {{option.name}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </div>
-          <br>
-          <div class="picker">
-            <mat-form-field class="full-width">
-              <mat-label>Carte 5</mat-label>
-              <input required type="text" matInput [formControl]="carte5Control" [matAutocomplete]="carte5">
-              <mat-autocomplete #carte5="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
-                <mat-option *ngFor="let option of carte5FilteredOptions | async" [value]="option">
-                  {{option.name}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </div>
-          <br>
+          <ng-container  *ngFor="let carteControl of cartesControls; let i = index">
+            <div class="picker">
+              <mat-form-field class="full-width">
+                <mat-label>Carte {{i}}</mat-label>
+                <input required type="text" matInput [formControl]="carteControl.control" [matAutocomplete]="carte1">
+                <mat-error *ngIf="carteControl.control.hasError('required')">
+                  Champs obligatoire
+                </mat-error>
+                <mat-icon *ngIf="isAdding(carteControl.control.value)" matSuffix matTooltip="La carte sera crée avec le nom brut actuellement renseigné. Pensez à ajouter l'id entre parenthèses." class="icon-add">add_task</mat-icon>
+                <mat-autocomplete #carte1="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
+                  <mat-option *ngFor="let option of carteControl.filterControl | async" [value]="option">
+                    {{option.name}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+            <br>
+          </ng-container>
           <div class="text-center">
-            <button type="submit" mat-flat-button class="ajouter-recette">Ajouter</button>
+            <button type="submit" mat-flat-button class="ajouter-recette" [disabled]="addLoading">
+              <ng-container *ngIf="addLoading; else ajouter">
+                <mat-spinner diameter="30"></mat-spinner>
+              </ng-container>
+              <ng-template #ajouter>
+                Ajouter
+              </ng-template>
+            </button>
+            <div *ngIf="formulaireNonvalid" class="mat-error">
+              Erreur(s) dans le formulaire (pensez à bien sélectionner un objet)
+            </div>
           </div>
         </form>
       </div>
@@ -87,7 +60,7 @@
     <div class="col col-lg-1">
     </div>
     <div class="col col-lg-3 height-100 bloc-principal bloc-gauche">
-      logs
+      Logs - TODO
     </div>
   </div>
 </div>

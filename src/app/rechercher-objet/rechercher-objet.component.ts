@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {FormControl} from '@angular/forms';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
-import {Item} from '../modele';
+import {Objet} from '../modele';
 import {ObjetsService} from '../objets.service';
 import {of} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
@@ -15,9 +15,9 @@ import {ActivatedRoute} from '@angular/router';
 export class RechercherObjetComponent implements OnInit {
 
   objetControl = new FormControl();
-  objetFilteredOptions: Item[] = [];
-  dataSource: MatTableDataSource<Item> = new MatTableDataSource([]);
-  options: Item[] = [];
+  objetFilteredOptions: Objet[] = [];
+  dataSource: MatTableDataSource<Objet> = new MatTableDataSource([]);
+  options: Objet[] = [];
   isLoading = false;
 
   constructor(
@@ -41,7 +41,7 @@ export class RechercherObjetComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (params.id) {
         this.objetsService.getObjet(params.id).subscribe(objet => {
-          this.objetControl.setValue(objet);
+          this.objetControl.setValue(objet[0]);
           this.rechercher();
         });
       }
@@ -49,7 +49,7 @@ export class RechercherObjetComponent implements OnInit {
 
   }
 
-  displayFn(item: Item): string {
+  displayFn(item: Objet): string {
     return item && item.name ? item.name : '';
   }
 

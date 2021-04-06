@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Item} from '../modele';
+import {Objet} from '../modele';
+import {RecettesService} from '../recettes.service';
 
 @Component({
   selector: 'app-liste-recettes',
@@ -36,8 +37,9 @@ export class ListeRecettesComponent implements OnInit {
     display: 'Type'
   }];
   displayedColumns: any[] = this.columnsToDisplay.map(col => col.id);
-  expandedElement: Item | null;
-  constructor() { }
+  expandedElement: Objet | null;
+  constructor(
+  ) { }
 
   ngOnInit(): void {
   }
@@ -46,6 +48,7 @@ export class ListeRecettesComponent implements OnInit {
   public applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    console.log('datasource', this.dataSource);
   }
 
 }
