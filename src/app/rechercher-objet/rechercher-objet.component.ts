@@ -16,7 +16,7 @@ export class RechercherObjetComponent implements OnInit {
 
   objetControl = new FormControl();
   objetFilteredOptions: Objet[] = [];
-  dataSource: MatTableDataSource<Objet> = new MatTableDataSource([]);
+  objetSelected: Objet;
   options: Objet[] = [];
   isLoading = false;
 
@@ -31,7 +31,7 @@ export class RechercherObjetComponent implements OnInit {
       .pipe(
         debounceTime(300),
         tap(() => this.isLoading = true),
-        switchMap(value => (value.length > 2 ? this.objetsService.autoComplete(value) : of([]))
+        switchMap(value => (value?.length > 2 ? this.objetsService.autoComplete(value) : of([]))
           .pipe(
             finalize(() => this.isLoading = false),
           )
@@ -42,7 +42,7 @@ export class RechercherObjetComponent implements OnInit {
       if (params.id) {
         this.objetsService.getObjet(params.id).subscribe(objet => {
           this.objetControl.setValue(objet[0]);
-          this.rechercher();
+          this.objetSelected = this.objetControl.value;
         });
       }
     });
@@ -54,8 +54,12 @@ export class RechercherObjetComponent implements OnInit {
   }
 
   rechercher(): void {
-    console.log('objet selected', this.objetControl.value);
-    this.dataSource = new MatTableDataSource([this.objetControl.value]);
+    if (this.objetControl.value && this.objetControl.value.id) {
+      this.objetsService.getObjet(this.objetControl.value.id).subscribe(objet => {
+        this.objetControl.setValue(objet[0]);
+        this.objetSelected = this.objetControl.value;
+      });
+    }
   }
 
 }

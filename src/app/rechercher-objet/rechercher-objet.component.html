@@ -27,6 +27,26 @@
 </div>
 
 
-<div class="results">
-  <app-liste-recettes [dataSource]="dataSource" [withFilter]="false"></app-liste-recettes>
+<div class="results" *ngIf="objetSelected">
+  <img src="assets/logo_andromede.png" height="200" alt="" class="image">
+  <div class="header-objet">
+    <p class="nom-objet">objet : {{objetSelected.name}}</p>
+    <p class="type-objet">Type : {{objetSelected.type}}</p>
+    <p class="lvl-objet"> Lvl {{objetSelected.lvl}}</p>
+  </div>
+  <div class="width-100">
+    <p class="recettes-title">Recettes : </p>
+  </div>
+  <div class="recettes">
+    <ng-container *ngIf="objetSelected.combinaisons?.length > 0; else noCombinaison">
+
+      <div *ngFor="let combinaison of objetSelected.combinaisons; let i = index">
+        Combinaison 1 : {{combinaison.cartes[0]}} + {{combinaison.cartes[1]}} + {{combinaison.cartes[2]}} + {{combinaison.cartes[3]}} + {{combinaison.cartes[4]}}
+        <br>
+      </div>
+    </ng-container>
+    <ng-template #noCombinaison>
+      Pas de recette pour cet objet.
+    </ng-template>
+  </div>
 </div>

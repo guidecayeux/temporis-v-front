@@ -22,11 +22,11 @@ tr.element-row {
 
 tr.detail-row {
   height: 0;
-  background-color: #363636;
+  background-color: #464646;
 }
 
 tr.element-row:not(.expanded-row):hover, tr.element-row:not(.expanded-row):active {
-  background: #363636;
+  background: #464646;
 }
 
 .element-row td {

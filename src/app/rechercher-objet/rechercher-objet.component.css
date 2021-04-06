@@ -8,11 +8,57 @@
   width: 100%;
   font-size: 2em;
 }
+.width-100 {
+  width: 100%;
+}
 
 .results {
   width: 80%;
   margin-left: auto;
   margin-right: auto;
+  background-color: #313131;
+  height: 90%;
+  color: white;
+  padding: 20px;
+}
+
+.image {
+  float: left;
+}
+
+.header-objet {
+  height: 20%;
+  margin-left: 10px;
+}
+
+.nom-objet{
+  font-size: 3em;
+}
+
+.type-objet{
+  font-size: 2em;
+}
+
+.lvl-objet {
+  font-size: 2em;
+}
+
+.recettes-title {
+  text-decoration: underline;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 4em;
+  width: fit-content;
+  height: 10%;
+}
+
+.recettes {
+  background-color: #464646;
+  height: 70%;
+  width: 80%;
+  margin-left: 14%;
+  margin-top: 30px;
+  overflow: auto;
 }
 
 .middle-section {
