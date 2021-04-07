@@ -17,19 +17,20 @@
     <tbody>
     <tr *ngFor="let element of dataSource" class="tr-content">
       <td>
-        <img [src]="element.img" alt="logo">
+        <img src="" alt="logo" appGetImage [type]="element.type" size="20">
       </td>
       <td>
-        <a [routerLink]="'/rechercher-objet'" [queryParams]="{id: element.id}">{{element.name}}</a>
+        <a class="link-objet" [routerLink]="'/rechercher-objet'" [queryParams]="{id: element.id}">{{element.name}}
+          <span class="material-icons link-objet-icon">
+          manage_search
+          </span>
+        </a>
       </td>
       <td>
         {{element.lvl}}
       </td>
       <td>
         {{element.type}}
-      </td>
-      <td>
-        {{element.nbRecette}}
       </td>
     </tr>
     </tbody>

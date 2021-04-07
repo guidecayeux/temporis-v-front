@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Objet} from '../modele';
-import {ObjetsService} from '../objets.service';
+import {ObjetsService} from '../services/objets.service';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class ListeObjetsComponent implements OnInit, OnDestroy  {
   listObjets: Objet[] = [];
   currentMaxItem: number = this.numberMax;
 
-  columnsToDisplay: string[] = ['', 'Nom', 'Niveau', 'Type', 'Nombre de recette'];
+  columnsToDisplay: string[] = ['', 'Nom', 'Niveau', 'Type'];
 
   filtre: any;
   constructor(

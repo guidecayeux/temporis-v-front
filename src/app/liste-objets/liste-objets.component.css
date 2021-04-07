@@ -32,7 +32,7 @@
 }
 
 .header {
-  text-align: center;
+  font-size: 2em;
 }
 
 table {
@@ -69,4 +69,12 @@ header, .row {
 .floatright {
   display: block;
   float: right;
+}
+.link-objet {
+  color: wheat;
+}
+.link-objet-icon {
+  font-size: 20px;
+  text-align: center;
+  margin-left: 5px;
 }

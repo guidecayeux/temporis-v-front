@@ -5,9 +5,9 @@ import {debounceTime, finalize, map, startWith, switchMap, tap} from 'rxjs/opera
 import {User} from '../rechercher-recettes/rechercher-recettes.component';
 import {isAdding} from '../util';
 import {Carte, Objet} from '../modele';
-import {CartesService} from '../cartes.service';
-import {ObjetsService} from '../objets.service';
-import {RecettesService} from '../recettes.service';
+import {CartesService} from '../services/cartes.service';
+import {ObjetsService} from '../services/objets.service';
+import {RecettesService} from '../services/recettes.service';
 import {MatDialog} from '@angular/material/dialog';
 import {AjouterObjetComponent} from '../ajouter-objet/ajouter-objet.component';
 import {MatSnackBar} from '@angular/material/snack-bar';

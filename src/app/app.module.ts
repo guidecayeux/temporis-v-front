@@ -7,7 +7,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HeaderComponent} from './header/header.component';
 import {AppRoutingModule} from './app-routing.module';
 import {ListeObjetsComponent} from './liste-objets/liste-objets.component';
-import {AdminComponent} from './admin/admin.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
@@ -23,27 +22,32 @@ import {HttpClientModule} from '@angular/common/http';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {RechercherObjetComponent} from './rechercher-objet/rechercher-objet.component';
-import { ListeRecettesComponent } from './liste-recettes/liste-recettes.component';
+import {ListeRecettesComponent} from './liste-recettes/liste-recettes.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { AjouterObjetComponent } from './ajouter-objet/ajouter-objet.component';
+import {AjouterObjetComponent} from './ajouter-objet/ajouter-objet.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {GetImageDirective} from './get-image.directive';
+import { AccueilComponent } from './accueil/accueil.component';
+import { InputRechercherObjetComponent } from './input-rechercher-objet/input-rechercher-objet.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     ListeObjetsComponent,
-    AdminComponent,
     LayoutComponent,
     AjouterRecetteComponent,
     RechercherRecettesComponent,
     RechercherObjetComponent,
     ListeRecettesComponent,
-    AjouterObjetComponent
+    AjouterObjetComponent,
+    GetImageDirective,
+    AccueilComponent,
+    InputRechercherObjetComponent
   ],
   imports: [
     BrowserModule,

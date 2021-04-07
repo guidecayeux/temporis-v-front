@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Carte, Objet} from './modele';
+import {Carte, Objet} from '../modele';
 import {Observable, of} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {environment} from '../environments/environment';
+import {environment} from '../../environments/environment';
 import {CookieService} from 'ngx-cookie-service';
 
 @Injectable({

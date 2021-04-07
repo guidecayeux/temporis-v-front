@@ -4,8 +4,8 @@ import {Observable} from 'rxjs';
 import {debounce, debounceTime, map, startWith} from 'rxjs/operators';
 import {MatTableDataSource} from '@angular/material/table';
 import {Carte, Objet} from '../modele';
-import {RecettesService} from '../recettes.service';
-import {CartesService} from '../cartes.service';
+import {RecettesService} from '../services/recettes.service';
+import {CartesService} from '../services/cartes.service';
 import {isAdding} from '../util';
 
 export interface User {

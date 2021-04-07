@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Objet} from '../modele';
-import {RecettesService} from '../recettes.service';
+import {RecettesService} from '../services/recettes.service';
 
 @Component({
   selector: 'app-liste-recettes',

@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
       if (bearer)  {
         this.cookieService.set('AuthTwitch', bearer);
         this.getTwitchUser(bearer);
-        this.router.navigate(['/objet']);
+        this.router.navigate(['/']);
       } else {
         this.getTwitchUser(this.cookieService.get('AuthTwitch'));
       }

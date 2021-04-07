@@ -1,0 +1,12 @@
+<div class="title">Bienvenue</div>
+
+<p class="description">
+  Ce site, réalisé par la guilde Andromede, a pour but de regrouper les recettes de
+  <a href="https://www.dofus.com/fr/mmorpg/actualites/news/1313032-temporis-v-faq" target="_blank">Temporis V</a>.<br>
+  La consultation est disponible pour tout le monde ! Si vous souhaitez contribuer, contactez Wig0#<span (click)="afficherDiscord()" [className]="discord.class">{{discord.text}}</span>
+  sur Discord. <br>Ce fansite n'est pas associé à Ankama.
+</p>
+
+<app-input-rechercher-objet (callBack)="callbackInput($event)" [objetControl]="objetControl">
+
+</app-input-rechercher-objet>

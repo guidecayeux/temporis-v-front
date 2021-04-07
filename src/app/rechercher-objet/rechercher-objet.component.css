@@ -1,13 +1,4 @@
-.picker {
-  margin-left: auto;
-  margin-right: auto;
-  width: 40%;
-}
 
-.search {
-  width: 100%;
-  font-size: 2em;
-}
 .width-100 {
   width: 100%;
 }
@@ -24,11 +15,12 @@
 
 .image {
   float: left;
+  height: 150px;
 }
 
 .header-objet {
   height: 20%;
-  margin-left: 10px;
+  margin-left: 200px;
 }
 
 .nom-objet{
@@ -44,7 +36,6 @@
 }
 
 .recettes-title {
-  text-decoration: underline;
   margin-left: auto;
   margin-right: auto;
   font-size: 4em;
@@ -59,22 +50,5 @@
   margin-left: 14%;
   margin-top: 30px;
   overflow: auto;
-}
-
-.middle-section {
-  display: table;
-  height: 100%;
-}
-
-.middle-wrapper {
-  display: table-cell;
-  vertical-align: middle
-}
-
-.search-button {
-  display: inline-block;
-}
-
-.toto {
-  color: black!important;
+  padding: 10px
 }

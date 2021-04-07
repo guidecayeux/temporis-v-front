@@ -1,38 +1,13 @@
-<div class="picker">
-  <div class="search row">
-    <mat-form-field class="col-lg-10">
-      <mat-label class="toto">Rechercher un objet</mat-label>
-      <input type="text" matInput [formControl]="objetControl" [matAutocomplete]="carte1">
-      <mat-autocomplete #carte1="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
-        <mat-option *ngIf="isLoading" class="is-loading">
-          <mat-spinner diameter="20"></mat-spinner>
-        </mat-option>
-        <ng-container *ngIf="!isLoading">
-          <mat-option *ngFor="let option of objetFilteredOptions" [value]="option">
-            {{option.name}}
-          </mat-option>
-        </ng-container>
-      </mat-autocomplete>
-    </mat-form-field>
-    <div class="col-lg-2">
-      <div class="middle-section">
-        <div class="middle-wrapper">
-          <button mat-flat-button (click)="rechercher()" class="search-button">Rechercher</button>
-        </div>
+<app-input-rechercher-objet (callBack)="callbackInput($event)" [objetControl]="objetControl">
 
-      </div>
-    </div>
-
-  </div>
-</div>
-
+</app-input-rechercher-objet>
 
 <div class="results" *ngIf="objetSelected">
-  <img src="assets/logo_andromede.png" height="200" alt="" class="image">
+  <img src="" alt="" class="image" appGetImage [type]="objetSelected.type" size="200">
   <div class="header-objet">
-    <p class="nom-objet">objet : {{objetSelected.name}}</p>
+    <p class="nom-objet">{{objetSelected.name}}</p>
     <p class="type-objet">Type : {{objetSelected.type}}</p>
-    <p class="lvl-objet"> Lvl {{objetSelected.lvl}}</p>
+    <p class="lvl-objet"> Niveau {{objetSelected.lvl}}</p>
   </div>
   <div class="width-100">
     <p class="recettes-title">Recettes : </p>
@@ -40,13 +15,16 @@
   <div class="recettes">
     <ng-container *ngIf="objetSelected.combinaisons?.length > 0; else noCombinaison">
 
-      <div *ngFor="let combinaison of objetSelected.combinaisons; let i = index">
-        Combinaison 1 : {{combinaison.cartes[0]}} + {{combinaison.cartes[1]}} + {{combinaison.cartes[2]}} + {{combinaison.cartes[3]}} + {{combinaison.cartes[4]}}
-        <br>
-      </div>
+      <p *ngFor="let combinaison of objetSelected.combinaisons; let i = index">
+        Combinaison {{i}} : <img src="assets/logo_carte.png" alt="logo carte"> {{combinaison.cartes[0]}} +
+        <img src="assets/logo_carte.png" alt="logo carte"> {{combinaison.cartes[1]}} +
+        <img src="assets/logo_carte.png" alt="logo carte"> {{combinaison.cartes[2]}} +
+        <img src="assets/logo_carte.png" alt="logo carte"> {{combinaison.cartes[3]}} +
+        <img src="assets/logo_carte.png" alt="logo carte"> {{combinaison.cartes[4]}}
+      </p>
     </ng-container>
     <ng-template #noCombinaison>
-      Pas de recette pour cet objet.
+      Pas de recette connue pour cet objet (go jouer au chinq).
     </ng-template>
   </div>
 </div>

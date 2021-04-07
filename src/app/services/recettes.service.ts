@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Objet, Recette, RecetteQuery} from './modele';
-import {environment} from '../environments/environment';
+import {Objet, Recette, RecetteQuery} from '../modele';
+import {environment} from '../../environments/environment';
 import {CookieService} from 'ngx-cookie-service';
 
 @Injectable({

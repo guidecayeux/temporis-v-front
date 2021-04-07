@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {Objet} from '../modele';
-import {ObjetsService} from '../objets.service';
+import {ObjetsService} from '../services/objets.service';
 
 @Component({
   selector: 'app-ajouter-objet',
@@ -22,7 +22,7 @@ export class AjouterObjetComponent implements OnInit {
     'Dofus',
     'Sac à dos',
     'Trophée',
-    'Idoles',
+    'Idole',
     'Consommable',
     'Level Up',
     'Autre'];

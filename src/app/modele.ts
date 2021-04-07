@@ -16,12 +16,10 @@ export interface CardCombine {
 }
 
 export interface Objet {
-  img?: string;
   name?: string;
   lvl?: number;
   type?: string;
   id?: number;
-  nbRecette?: number;
   combinaisons?: CardCombine[];
 }
 
