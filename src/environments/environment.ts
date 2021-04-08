@@ -18,6 +18,12 @@ export const environment = {
     recette: {
       liste: 'http://localhost:3000/api/recettes/liste',
       ajout: 'http://localhost:3000/api/recettes/add'
+    },
+    twitch: {
+      redirect_uri: 'http://localhost:4200/'
+    },
+    auth: {
+      authorization: 'http://localhost:3000/api/authorization'
     }
   }
 };

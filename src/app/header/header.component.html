@@ -17,7 +17,7 @@
       </div>
       <div class="text-white">
         <ng-container *ngIf="!user; else connected">
-          <a href="https://id.twitch.tv/oauth2/authorize?client_id=rtob0x5m8rl2ul5vh695p9y663ziui&redirect_uri=http://localhost:4200/rechercher-objet&response_type=token&scope=" mat-flat-button>Se connecter via  <img src="assets/TwitchGlitchPurple.svg" height="25px" alt="logo twitch"></a>
+          <a [href]="'https://id.twitch.tv/oauth2/authorize?client_id=rtob0x5m8rl2ul5vh695p9y663ziui&redirect_uri=' + redirectUri + '&response_type=token&scope='" mat-flat-button>Se connecter via  <img src="assets/TwitchGlitchPurple.svg" height="25px" alt="logo twitch"></a>
         </ng-container>
         <ng-template #connected>
           <button mat-flat-button [matMenuTriggerFor]="menu">{{user.login}}</button>

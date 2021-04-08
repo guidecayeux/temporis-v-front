@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../modele';
 import {Observable, Subject} from 'rxjs';
 import {tap} from 'rxjs/operators';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ export class AuthService {
     return this.httpClient.get<User>('https://id.twitch.tv/oauth2/validate', {headers}).pipe(
       tap(user => {
         if (user?.login && !this.isAdmin()) {
-          this.httpClient.get<void>('http://localhost:3000/api/authorization', {headers}).subscribe(() => {
+          this.httpClient.get<void>(environment.url.auth.authorization, {headers}).subscribe(() => {
               console.log('authorise');
               this.admin = true;
               this.adminSubject.next(true);

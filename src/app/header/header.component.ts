@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
 import {User} from '../modele';
 import {AuthService} from '../auth/auth.service';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +14,7 @@ import {AuthService} from '../auth/auth.service';
 export class HeaderComponent implements OnInit {
   public user: User;
   public isAdmin = false;
+  public redirectUri = environment.url.twitch.redirect_uri;
 
   constructor(
     private route: ActivatedRoute,

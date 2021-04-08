@@ -2,18 +2,24 @@ export const environment = {
   production: true,
   url: {
     objets: {
-      liste: 'http://localhost:3000/api/objets/liste',
-      unitaire: 'http://localhost:3000/api/objets/search/',
-      autocomplete: 'http://localhost:3000/api/objets/autocomplete/',
-      ajout: 'http://localhost:3000/api/objets/add'
+      liste: '/api/objets/liste',
+      unitaire: '/api/objets/search/',
+      autocomplete: '/api/objets/autocomplete/',
+      ajout: '/api/objets/add'
     },
     carte: {
-      liste: 'http://localhost:3000/api/cartes/liste',
-      ajout: 'http://localhost:3000/api/cartes/add'
+      liste: '/api/cartes/liste',
+      ajout: '/api/cartes/add'
     },
     recette: {
-      liste: 'http://localhost:3000/api/recettes/liste',
-      ajout: 'http://localhost:3000/api/recettes/add'
+      liste: '/api/recettes/liste',
+      ajout: '/api/recettes/add'
+    },
+    twitch: {
+      redirect_uri: 'https://www.temporis-v.fr'
+    },
+    auth: {
+      authorization: '/api/authorization'
     }
   }
 };
