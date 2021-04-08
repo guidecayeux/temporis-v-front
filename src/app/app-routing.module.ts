@@ -5,7 +5,8 @@ import {LayoutComponent} from './layout/layout.component';
 import {AjouterRecetteComponent} from './ajouter-recette/ajouter-recette.component';
 import {RechercherRecettesComponent} from './rechercher-recettes/rechercher-recettes.component';
 import {RechercherObjetComponent} from './rechercher-objet/rechercher-objet.component';
-import {AccueilComponent} from './accueil/accueil.component'; // CLI imports router
+import {AccueilComponent} from './accueil/accueil.component';
+import {AuthGuard} from './auth/auth-guard.service'; // CLI imports router
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
       {path: 'accueil', component: AccueilComponent},
       {path: 'rechercher-objet', component: RechercherObjetComponent},
       {path: 'rechercher-recettes', component: RechercherRecettesComponent},
-      {path: 'ajouter-recette', component: AjouterRecetteComponent},
+      {path: 'ajouter-recette', component: AjouterRecetteComponent, canActivate: [AuthGuard]},
       {path: 'objets', component: ListeObjetsComponent},
       {path: '**', redirectTo: 'accueil'}
     ]

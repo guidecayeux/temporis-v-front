@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
 import {User} from '../modele';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,12 +12,12 @@ import {User} from '../modele';
 })
 export class HeaderComponent implements OnInit {
   public user: User;
+  public isAdmin = false;
 
   constructor(
-    private httpClient: HttpClient,
     private route: ActivatedRoute,
-    private cookieService: CookieService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
   }
 
@@ -24,31 +25,27 @@ export class HeaderComponent implements OnInit {
     this.route.fragment.subscribe((fragment: string) => {
       const bearer = new URLSearchParams(fragment).get('access_token');
       if (bearer)  {
-        this.cookieService.set('AuthTwitch', bearer);
-        this.getTwitchUser(bearer);
-        this.router.navigate(['/']);
+        this.authService.login(bearer).subscribe(user => {
+          this.user = user;
+          this.router.navigate(['/']);
+        }, () => {
+          this.router.navigate(['/']);
+        });
       } else {
-        this.getTwitchUser(this.cookieService.get('AuthTwitch'));
+        this.authService.getTwitchUser().subscribe(user => {
+          this.user = user;
+        });
       }
     });
-  }
 
-  getTwitchUser(bearer): void {
-    const headers = new HttpHeaders().set('Authorization', 'OAuth ' + bearer);
-    this.httpClient.get<User>('https://id.twitch.tv/oauth2/validate', {headers}).subscribe(user => {
-      console.log('user', user);
-      this.user = user;
-    }, (err) => {
-      console.log('err', err);
+    this.authService.adminSubject.asObservable().subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
     });
   }
 
   deconnexion(): void {
-     this.httpClient.post('https://id.twitch.tv/oauth2/revoke?client_id=rtob0x5m8rl2ul5vh695p9y663ziui&token=' + this.cookieService.get('AuthTwitch'), '').subscribe(value => {
-       this.user = undefined;
-       this.cookieService.set('AuthTwitch', '');
-     }, error => {
-
-     });
+    this.authService.deconnexion().subscribe(() => {
+      this.user = undefined;
+    });
   }
 }

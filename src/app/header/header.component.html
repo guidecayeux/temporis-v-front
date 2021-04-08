@@ -12,8 +12,8 @@
       <div class="mr-auto navbar-nav ">
         <a class="nav-link" routerLink="rechercher-objet" routerLinkActive="active">Rechercher un objet<span class="sr-only"></span></a>
         <a class="nav-link" routerLink="rechercher-recettes" routerLinkActive="active">Rechercher une recette<span class="sr-only"></span></a>
-        <a class="nav-link" routerLink="ajouter-recette" routerLinkActive="active">Ajouter une recette<span class="sr-only"></span></a>
         <a class="nav-link" routerLink="objets" routerLinkActive="active">Tous les objets <i>(avec recette)</i></a>
+        <a class="nav-link" routerLink="ajouter-recette" routerLinkActive="active" *ngIf="isAdmin">Ajouter une recette<span class="sr-only"></span></a>
       </div>
       <div class="text-white">
         <ng-container *ngIf="!user; else connected">
