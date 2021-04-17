@@ -42,3 +42,11 @@ tr.element-row:not(.expanded-row):hover, tr.element-row:not(.expanded-row):activ
   padding-top: 10px;
 }
 
+.link-objet {
+  color: wheat;
+}
+.link-objet-icon {
+  font-size: 20px;
+  text-align: center;
+  margin-left: 5px;
+}

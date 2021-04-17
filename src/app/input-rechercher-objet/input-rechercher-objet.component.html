@@ -1,9 +1,10 @@
 <div class="picker">
   <div class="search row">
-    <mat-form-field class="col-lg-10">
+    <mat-form-field class="col-lg-12">
       <mat-label class="input-search">Rechercher un objet</mat-label>
-      <input type="text" matInput [formControl]="objetControl" [matAutocomplete]="carte1">
-      <mat-autocomplete #carte1="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
+      <input type="text" matInput [formControl]="objetControl" [matAutocomplete]="carte1"
+             (keyup)="handleKeyUp($event)">
+      <mat-autocomplete #carte1="matAutocomplete" [displayWith]="displayFn" cdkScrollable (optionSelected)="rechercher()">
         <mat-option *ngIf="isLoading" class="is-loading">
           <mat-spinner diameter="20"></mat-spinner>
         </mat-option>
@@ -14,14 +15,5 @@
         </ng-container>
       </mat-autocomplete>
     </mat-form-field>
-    <div class="col-lg-2">
-      <div class="middle-section">
-        <div class="middle-wrapper">
-          <button mat-flat-button (click)="rechercher()" class="search-button">Rechercher</button>
-        </div>
-
-      </div>
-    </div>
-
   </div>
 </div>

@@ -29,11 +29,17 @@ export interface RecetteQuery {
 
 export interface Recette {
   idObjet: number;
+  nameObjet: string;
   idCarte1: number;
+  nameCarte1: string;
   idCarte2: number;
+  nameCarte2: string;
   idCarte3: number;
+  nameCarte3: string;
   idCarte4: number;
+  nameCarte4: string;
   idCarte5: number;
+  nameCarte5: string;
 }
 
 

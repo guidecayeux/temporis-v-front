@@ -16,9 +16,26 @@
   width: 100%;
 }
 
-@media only screen and (min-height: 800px) {
+.btn-reset {
+  float: right;
+}
+
+@media only screen and (min-width: 425px) {
   .height-100 {
     height: 100%;
+  }
+
+  .rechercher {
+    height: 10%;
+  }
+}
+@media only screen and (max-width: 424px) {
+  .middle-section {
+    height: 50px;
+  }
+
+  .rechercher {
+    height: 65%;
   }
 }
 
@@ -55,7 +72,6 @@
 .rechercher {
   display: inline-block;
   width: 100%;
-  height: 10%;
   font-size: 1.5em;
 }
 

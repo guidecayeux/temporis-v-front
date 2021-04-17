@@ -126,4 +126,12 @@ export class RechercherRecettesComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Objet>(objets);
     });
   }
+
+  reset(): void {
+    this.carte1Control.setValue('');
+    this.carte2Control.setValue('');
+    this.carte3Control.setValue('');
+    this.carte4Control.setValue('');
+    this.carte5Control.setValue('');
+  }
 }

@@ -50,6 +50,10 @@
                 Ajouter
               </ng-template>
             </button>
+            <button type="reset" class="btn--reset" mat-flat-button (click)="reset()">
+              Reset
+              <mat-icon>restart_alt</mat-icon>
+            </button>
             <div *ngIf="formulaireNonvalid" class="mat-error">
               Erreur(s) dans le formulaire (pensez à bien sélectionner un objet)
             </div>
@@ -65,12 +69,12 @@
         <ng-container *ngIf="!logControl.isError, else errorLog">
           <ng-container *ngIf="logs.length > 0; else noLogs">
             <div *ngFor="let log of logs" class="log">
-              {{log.debut}}<b>{{log.itemName}}</b>{{log.avantUser}}<b>{{log.user}}</b>{{log.avantDate}}<b>{{log.date | date:'d MMM, HH:mm:ss'}}</b>{{log.fin}}
+              {{log.debut}}<span style="color: wheat">{{log.itemName}}</span>{{log.avantUser}}<span style="color: mediumpurple">{{log.user}}</span>{{log.avantDate}}<span style="color: chocolate">{{log.date | date:'d MMM, HH:mm:ss'}}</span>{{log.fin}}
             </div>
           </ng-container>
           <ng-template #noLogs>
             Pas de logs
-          </ng-template>c
+          </ng-template>
         </ng-container>
         <ng-template #errorLog>
           Erreur lors de la récupération des logs

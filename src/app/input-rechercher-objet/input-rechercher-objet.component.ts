@@ -31,7 +31,7 @@ export class InputRechercherObjetComponent implements OnInit {
       .pipe(
         debounceTime(300),
         tap(() => this.isLoading = true),
-        switchMap(value => (value?.length > 2 ? this.objetsService.autoComplete(value) : of([]))
+        switchMap(value => (value?.length > 1 ? this.objetsService.autoComplete(value) : of([]))
           .pipe(
             finalize(() => this.isLoading = false),
           )
@@ -49,4 +49,9 @@ export class InputRechercherObjetComponent implements OnInit {
     return item && item.name ? item.name : '';
   }
 
+  handleKeyUp($event: KeyboardEvent): void {
+    if ($event.key === 'Enter'){
+      this.rechercher();
+    }
+  }
 }

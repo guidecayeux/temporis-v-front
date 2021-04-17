@@ -6,6 +6,9 @@
           <mat-form-field class="full-width">
             <mat-label>Carte 1</mat-label>
             <input type="text" matInput [formControl]="carte1Control" [matAutocomplete]="carte1">
+            <button mat-button *ngIf="carte1Control.value" matSuffix mat-icon-button aria-label="Clear" (click)="carte1Control.setValue('')">
+              <mat-icon>close</mat-icon>
+            </button>
             <mat-icon *ngIf="isAdding(carte1Control.value)" matSuffix matTooltip="Veuillez choisir une carte" class="icon-add">warning</mat-icon>
             <mat-autocomplete #carte1="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
               <mat-option *ngFor="let option of carte1FilteredOptions | async" [value]="option">
@@ -19,6 +22,9 @@
           <mat-form-field class="full-width">
             <mat-label>Carte 2</mat-label>
             <input type="text" matInput [formControl]="carte2Control" [matAutocomplete]="carte2">
+            <button mat-button *ngIf="carte2Control.value" matSuffix mat-icon-button aria-label="Clear" (click)="carte2Control.setValue('')">
+              <mat-icon>close</mat-icon>
+            </button>
             <mat-icon *ngIf="isAdding(carte2Control.value)" matSuffix matTooltip="Veuillez choisir une carte" class="icon-add">warning</mat-icon>
             <mat-autocomplete #carte2="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
               <mat-option *ngFor="let option of carte2FilteredOptions | async" [value]="option">
@@ -32,6 +38,9 @@
           <mat-form-field class="full-width">
             <mat-label>Carte 3</mat-label>
             <input type="text" matInput [formControl]="carte3Control" [matAutocomplete]="carte3">
+            <button mat-button *ngIf="carte3Control.value" matSuffix mat-icon-button aria-label="Clear" (click)="carte3Control.setValue('')">
+              <mat-icon>close</mat-icon>
+            </button>
             <mat-icon *ngIf="isAdding(carte3Control.value)" matSuffix matTooltip="Veuillez choisir une carte" class="icon-add">warning</mat-icon>
             <mat-autocomplete #carte3="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
               <mat-option *ngFor="let option of carte3FilteredOptions | async" [value]="option">
@@ -45,6 +54,9 @@
           <mat-form-field class="full-width">
             <mat-label>Carte 4</mat-label>
             <input type="text" matInput [formControl]="carte4Control" [matAutocomplete]="carte4">
+            <button mat-button *ngIf="carte4Control.value" matSuffix mat-icon-button aria-label="Clear" (click)="carte4Control.setValue('')">
+              <mat-icon>close</mat-icon>
+            </button>
             <mat-icon *ngIf="isAdding(carte4Control.value)" matSuffix matTooltip="Veuillez choisir une carte" class="icon-add">warning</mat-icon>
             <mat-autocomplete #carte4="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
               <mat-option *ngFor="let option of carte4FilteredOptions | async" [value]="option">
@@ -58,6 +70,9 @@
           <mat-form-field class="full-width">
             <mat-label>Carte 5</mat-label>
             <input type="text" matInput [formControl]="carte5Control" [matAutocomplete]="carte5">
+            <button mat-button *ngIf="carte5Control.value" matSuffix mat-icon-button aria-label="Clear" (click)="carte5Control.setValue('')">
+              <mat-icon>close</mat-icon>
+            </button>
             <mat-icon *ngIf="isAdding(carte5Control.value)" matSuffix matTooltip="Veuillez choisir une carte" class="icon-add">warning</mat-icon>
             <mat-autocomplete #carte5="matAutocomplete" [displayWith]="displayFn" cdkScrollable>
               <mat-option *ngFor="let option of carte5FilteredOptions | async" [value]="option">
@@ -67,7 +82,10 @@
           </mat-form-field>
         </div>
         <br>
-
+        <button mat-flat-button aria-label="Clear" class="btn-reset" (click)="reset()">
+          Reset
+          <mat-icon>restart_alt</mat-icon>
+        </button>
       </form>
     </div>
     <div class="col col-lg-2 height-100 middle-section">

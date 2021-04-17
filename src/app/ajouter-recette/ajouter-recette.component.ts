@@ -80,7 +80,7 @@ export class AjouterRecetteComponent implements OnInit {
         .pipe(
           debounceTime(300),
           tap(() => this.isLoading = true),
-          switchMap(value => (value?.length > 2 ? this.objetsService.autoComplete(value) : of([]))
+          switchMap(value => (value?.length > 1 ? this.objetsService.autoComplete(value) : of([]))
             .pipe(
               finalize(() => this.isLoading = false),
             )
@@ -130,21 +130,24 @@ export class AjouterRecetteComponent implements OnInit {
       forkJoin(...listAjoutCarte).subscribe(results => {
         this.recettesService.ajoutRecette({
           idObjet: this.objetControl.control.value.id,
+          nameObjet: this.objetControl.control.value.name,
           idCarte1: results[0].id,
+          nameCarte1: results[0].name,
           idCarte2: results[1].id,
+          nameCarte2: results[1].name,
           idCarte3: results[2].id,
+          nameCarte3: results[2].name,
           idCarte4: results[3].id,
-          idCarte5: results[4].id
+          nameCarte4: results[3].name,
+          idCarte5: results[4].id,
+          nameCarte5: results[4].name
         }).subscribe(() => {
           this.getLogs();
           this.snackBar.open('Ajout effectué', '', {
             duration: 2000,
           });
           this.addLoading = false;
-          this.objetControl.control.setValue(undefined);
-          this.cartesControls.forEach(control => {
-            control.control.setValue('');
-          });
+          this.reset();
         }, (err) => {
           console.log(`erreur lors de l'ajout de recette`, err);
           this.snackBar.open(`Erreur lors de l'ajout`, '', {
@@ -200,6 +203,13 @@ export class AjouterRecetteComponent implements OnInit {
     }, () => {
       this.logControl.isError = true;
       this.logControl.isLoading = false;
+    });
+  }
+
+  reset(): void {
+    this.objetControl.control.setValue(undefined);
+    this.cartesControls.forEach(control => {
+      control.control.setValue('');
     });
   }
 }
