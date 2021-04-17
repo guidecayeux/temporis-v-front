@@ -71,7 +71,8 @@ import { InputRechercherObjetComponent } from './input-rechercher-objet/input-re
     MatTooltipModule,
     MatDialogModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

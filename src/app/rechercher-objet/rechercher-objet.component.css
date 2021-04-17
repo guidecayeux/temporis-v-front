@@ -13,6 +13,18 @@
   padding: 20px;
 }
 
+@media only screen and (max-width: 767px) {
+  .width-100 {
+    margin-top: 30px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .header-objet {
+    margin-left: 200px;
+  }
+}
+
 .image {
   float: left;
   height: 150px;
@@ -20,7 +32,6 @@
 
 .header-objet {
   height: 20%;
-  margin-left: 200px;
 }
 
 .nom-objet{

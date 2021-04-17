@@ -36,3 +36,17 @@ export interface Recette {
   idCarte5: number;
 }
 
+
+// création de l'objet ¤objet¤ par ¤user¤ le ¤date¤
+export interface Log {
+  id: number;
+  log?: string;
+  debut?: string;
+  itemName?: string;
+  avantUser?: string;
+  user?: string;
+  avantDate?: string;
+  date?: string;
+  fin?: string;
+}
+

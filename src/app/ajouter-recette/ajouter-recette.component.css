@@ -1,8 +1,20 @@
 .picker-BIG {
   font-size: 4em;
 }
+
+@media only screen and (min-height: 800px) {
+  .picker {
+    font-size: 1.5em;
+  }
+}
+
+@media only screen and (max-width: 799px) {
+  .picker {
+    font-size: 1.1em;
+  }
+}
+
 .picker {
-  font-size: 1.5em;
   width: 80%;
   margin-left: auto;
   margin-right: auto;
@@ -57,6 +69,15 @@
   color: white;
   padding-top: 20px;
 }
+@media only screen and (max-width: 991px) {
+
+  .bloc-gauche {
+    height: 110%;
+  }
+  .bloc-droite {
+    margin-top: 70px;
+  }
+}
 
 .row {
   padding-left: 20px;
@@ -66,4 +87,21 @@
 mat-spinner {
   margin-left: auto;
   margin-right: auto;
+}
+
+.log-title {
+  text-align: center;
+  font-size: 2em;
+  padding-bottom: 5px;
+}
+
+.log-list {
+  font-family: monospace;
+  font-size: 0.8em;
+  overflow: auto;
+  height: 95%;
+}
+
+.log {
+  border-bottom: .12rem solid white;
 }

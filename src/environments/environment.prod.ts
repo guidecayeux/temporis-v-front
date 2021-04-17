@@ -15,6 +15,9 @@ export const environment = {
       liste: '/api/recettes/liste',
       ajout: '/api/recettes/add'
     },
+    logs: {
+      liste: '/api/logs/liste'
+    },
     twitch: {
       redirect_uri: 'https://www.temporis-v.fr'
     },

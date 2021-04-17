@@ -13,6 +13,7 @@ export class RechercherObjetComponent implements OnInit {
 
   objetControl = new FormControl();
   objetSelected: Objet;
+  public mobile = false;
 
   constructor(
     private objetsService: ObjetsService,
@@ -21,6 +22,9 @@ export class RechercherObjetComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (window.innerWidth < 768) {
+      this.mobile = true;
+    }
     this.route.queryParams.subscribe(params => {
       if (params.id) {
         this.handleChangeObjet(params.id);

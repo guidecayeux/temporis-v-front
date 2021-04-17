@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CookieService} from 'ngx-cookie-service';
 import {User} from '../modele';
 import {AuthService} from '../auth/auth.service';
 import {environment} from '../../environments/environment';
@@ -15,6 +13,7 @@ export class HeaderComponent implements OnInit {
   public user: User;
   public isAdmin = false;
   public redirectUri = environment.url.twitch.redirect_uri;
+  public mobile = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +23,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (window.innerWidth < 768) {
+      this.mobile = true;
+    }
     this.route.fragment.subscribe((fragment: string) => {
       const bearer = new URLSearchParams(fragment).get('access_token');
       if (bearer)  {

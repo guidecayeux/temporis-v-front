@@ -1,14 +1,22 @@
 <header>
-  <nav class="navbar nav-masthead navbar-expand-md navbar-black fixed-top bg-dark">
-
+  <nav class="navbar nav-masthead navbar-expand-md navbar-black fixed-top bg-dark" ngbDropdown>
     <a [routerLink]="'/'" class="navbar-brand d-flex align-items-center">
       <img src="assets/logo_andromede.png" alt="andromede">
       <div class="text-black-50 titre-andromede ">Andromede</div>
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
+    <div class="collapse navbar-collapse" *ngIf="!mobile">
+      <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+    </div>
+    <ng-container *ngIf="mobile">
+      <button class="navbar-toggler" type="button" ngbDropdownToggle data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="material-icons">menu</span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse" ngbDropdownMenu *ngIf="mobile">
+        <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+      </div>
+    </ng-container>
+
+    <ng-template #contentTpl>
       <div class="mr-auto navbar-nav ">
         <a class="nav-link" routerLink="rechercher-objet" routerLinkActive="active">Rechercher un objet<span class="sr-only"></span></a>
         <a class="nav-link" routerLink="rechercher-recettes" routerLinkActive="active">Rechercher une recette<span class="sr-only"></span></a>
@@ -26,6 +34,6 @@
           </mat-menu>
         </ng-template>
       </div>
-    </div>
+    </ng-template>
   </nav>
 </header>

@@ -124,8 +124,6 @@ export class RechercherRecettesComponent implements OnInit {
       idCartes: listId
     }).subscribe(objets => {
       this.dataSource = new MatTableDataSource<Objet>(objets);
-    }, err => {
-      console.log('error lors de la récupération des recettes', err);
     });
   }
 }

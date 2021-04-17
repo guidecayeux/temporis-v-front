@@ -24,6 +24,9 @@
   </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
+  <ng-container *ngIf="error">
+    Erreur lors de l'ajout
+  </ng-container>
   <button mat-button mat-dialog-close>Annuler</button>
   <button mat-button (click)="valider()" cdkFocusInitial [disabled]="loading">
     <ng-container *ngIf="loading; else templateValider">

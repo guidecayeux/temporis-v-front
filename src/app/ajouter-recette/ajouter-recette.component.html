@@ -1,6 +1,6 @@
 <div class="container-fluid main-container height-100">
   <div class="row justify-content-md-center align-items-start height-100">
-    <div class="col col-lg-8 height-100 bloc-principal bloc-gauche">
+    <div class="col col-lg-8 col-md-12 col-sm-12 col-12 height-100 bloc-principal bloc-gauche">
       <div class="row">
 
         <form class="form" (ngSubmit)="ajouterRecette()" #recetteForm="ngForm">
@@ -26,7 +26,7 @@
           <ng-container  *ngFor="let carteControl of cartesControls; let i = index">
             <div class="picker">
               <mat-form-field class="full-width">
-                <mat-label>Carte {{i}}</mat-label>
+                <mat-label>Carte {{i + 1}}</mat-label>
                 <input required type="text" matInput [formControl]="carteControl.control" [matAutocomplete]="carte1">
                 <mat-error *ngIf="carteControl.control.hasError('required')">
                   Champs obligatoire
@@ -57,10 +57,28 @@
         </form>
       </div>
     </div>
-    <div class="col col-lg-1">
+    <div class="col col-lg-1  col-md-0 col-sm-0 col-0">
     </div>
-    <div class="col col-lg-3 height-100 bloc-principal bloc-gauche">
-      Logs - TODO
+    <div class="col col-lg-3  col-md-12 col-sm-12 col-12 height-100 bloc-principal bloc-droite">
+      <div class="log-title">Logs</div>
+      <div *ngIf="!logControl.isLoading; else loadingLog" class="log-list">
+        <ng-container *ngIf="!logControl.isError, else errorLog">
+          <ng-container *ngIf="logs.length > 0; else noLogs">
+            <div *ngFor="let log of logs" class="log">
+              {{log.debut}}<b>{{log.itemName}}</b>{{log.avantUser}}<b>{{log.user}}</b>{{log.avantDate}}<b>{{log.date | date:'d MMM, HH:mm:ss'}}</b>{{log.fin}}
+            </div>
+          </ng-container>
+          <ng-template #noLogs>
+            Pas de logs
+          </ng-template>c
+        </ng-container>
+        <ng-template #errorLog>
+          Erreur lors de la récupération des logs
+        </ng-template>
+      </div>
+      <ng-template #loadingLog>
+        <mat-spinner></mat-spinner>
+      </ng-template>
     </div>
   </div>
 </div>

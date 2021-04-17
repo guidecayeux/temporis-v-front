@@ -37,13 +37,10 @@ export class InputRechercherObjetComponent implements OnInit {
           )
         )
       ).subscribe(items => this.objetFilteredOptions = items);
-
-    console.log('callbakc', this.callBack);
   }
 
   rechercher(): void {
     if (this.objetControl.value && this.objetControl.value.id) {
-      console.log('emitting', this.objetControl.value);
       this.callBack.emit(this.objetControl.value);
     }
   }

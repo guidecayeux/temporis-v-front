@@ -28,7 +28,7 @@ export class AjouterObjetComponent implements OnInit {
     'Autre'];
   public loading = false;
   public erreurFormulaire = false;
-  private error = false;
+  public error = false;
 
   constructor(
     private dialogRef: MatDialogRef<AjouterObjetComponent>,

@@ -48,7 +48,6 @@ export class ListeRecettesComponent implements OnInit {
   public applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-    console.log('datasource', this.dataSource);
   }
 
 }

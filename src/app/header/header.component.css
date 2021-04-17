@@ -31,3 +31,10 @@
 .navbar-black {
   background-color: #313131!important;
 }
+
+.dropdown-menu {
+  background-color: #313131;
+  width: 50%;
+  margin-left: 50%;
+  text-align: right;
+}

@@ -4,13 +4,14 @@ import {forkJoin, Observable, of} from 'rxjs';
 import {debounceTime, finalize, map, startWith, switchMap, tap} from 'rxjs/operators';
 import {User} from '../rechercher-recettes/rechercher-recettes.component';
 import {isAdding} from '../util';
-import {Carte, Objet} from '../modele';
+import {Carte, Log, Objet} from '../modele';
 import {CartesService} from '../services/cartes.service';
 import {ObjetsService} from '../services/objets.service';
 import {RecettesService} from '../services/recettes.service';
 import {MatDialog} from '@angular/material/dialog';
 import {AjouterObjetComponent} from '../ajouter-objet/ajouter-objet.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {LogsService} from '../services/logs.service';
 
 @Component({
   selector: 'app-ajouter-recette',
@@ -55,6 +56,11 @@ export class AjouterRecetteComponent implements OnInit {
   public isLoading = false;
   public addLoading = false;
   public formulaireNonvalid = false;
+  public logControl = {
+    isLoading: false,
+    isError: false
+  };
+  public logs: Log[] = [];
 
 
   constructor(
@@ -62,7 +68,8 @@ export class AjouterRecetteComponent implements OnInit {
     private objetsService: ObjetsService,
     private recettesService: RecettesService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private logsService: LogsService
   ) {
   }
 
@@ -91,6 +98,8 @@ export class AjouterRecetteComponent implements OnInit {
           );
       });
     });
+
+    this.getLogs();
 
   }
 
@@ -127,6 +136,7 @@ export class AjouterRecetteComponent implements OnInit {
           idCarte4: results[3].id,
           idCarte5: results[4].id
         }).subscribe(() => {
+          this.getLogs();
           this.snackBar.open('Ajout effectué', '', {
             duration: 2000,
           });
@@ -158,7 +168,10 @@ export class AjouterRecetteComponent implements OnInit {
     const dialogRef = this.dialog.open(AjouterObjetComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      this.objetControl.control.setValue(result);
+      if (result) {
+        this.objetControl.control.setValue(result);
+        this.getLogs();
+      }
     });
   }
 
@@ -166,5 +179,27 @@ export class AjouterRecetteComponent implements OnInit {
     return this.objetControl.control.valid && this.objetControl.control.value.id
       && this.cartesControls[0].control.valid && this.cartesControls[1].control.valid
       && this.cartesControls[2].control.valid && this.cartesControls[3].control.valid && this.cartesControls[4].control.valid;
+  }
+
+  private getLogs(): void {
+    this.logControl.isLoading = true;
+    this.logControl.isError = false;
+    this.logsService.getLogs().subscribe(logs => {
+      this.logs = logs.sort((a, b) => b.id - a.id);
+      this.logs.forEach(log => {
+        const splitName = log.log.split('¤');
+        log.debut = splitName[0];
+        log.itemName = splitName[1];
+        log.avantUser = splitName[2];
+        log.user = splitName[3];
+        log.avantDate = splitName[4];
+        log.date = splitName[5];
+        log.fin = splitName[6];
+      });
+      this.logControl.isLoading = false;
+    }, () => {
+      this.logControl.isError = true;
+      this.logControl.isLoading = false;
+    });
   }
 }

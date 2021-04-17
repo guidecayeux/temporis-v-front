@@ -3,7 +3,7 @@
 </app-input-rechercher-objet>
 
 <div class="results" *ngIf="objetSelected">
-  <img src="" alt="" class="image" appGetImage [type]="objetSelected.type" size="200">
+  <img src="" alt="" class="image" appGetImage [type]="objetSelected.type" size="200"  *ngIf="!mobile">
   <div class="header-objet">
     <p class="nom-objet">{{objetSelected.name}}</p>
     <p class="type-objet">Type : {{objetSelected.type}}</p>

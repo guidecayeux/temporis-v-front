@@ -20,7 +20,6 @@ export class AuthService {
   ) { }
 
   isAdmin(): boolean {
-    console.log('is authentifiierhjrozeij', this.admin);
     return this.admin;
   }
 
@@ -35,12 +34,9 @@ export class AuthService {
       tap(user => {
         if (user?.login && !this.isAdmin()) {
           this.httpClient.get<void>(environment.url.auth.authorization, {headers}).subscribe(() => {
-              console.log('authorise');
               this.admin = true;
               this.adminSubject.next(true);
-            }, () => {
-              console.log('non authorise');
-          });
+            });
         }
       })
     );

@@ -19,6 +19,9 @@ export const environment = {
       liste: 'http://localhost:3000/api/recettes/liste',
       ajout: 'http://localhost:3000/api/recettes/add'
     },
+    logs: {
+      liste: 'http://localhost:3000/api/logs/liste'
+    },
     twitch: {
       redirect_uri: 'http://localhost:4200/'
     },
