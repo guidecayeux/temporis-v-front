@@ -2,27 +2,27 @@ export const environment = {
   production: true,
   url: {
     objets: {
-      liste: '/api/objets/liste',
-      unitaire: '/api/objets/search/',
-      autocomplete: '/api/objets/autocomplete/',
-      ajout: '/api/objets/add'
+      liste: 'https://temporis-v.fr/api/objets/liste',
+      unitaire: 'https://temporis-v.fr/api/objets/search/',
+      autocomplete: 'https://temporis-v.fr/api/objets/autocomplete/',
+      ajout: 'https://temporis-v.fr/api/objets/add'
     },
     carte: {
-      liste: '/api/cartes/liste',
-      ajout: '/api/cartes/add'
+      liste: 'https://temporis-v.fr/api/cartes/liste',
+      ajout: 'https://temporis-v.fr/api/cartes/add'
     },
     recette: {
-      liste: '/api/recettes/liste',
-      ajout: '/api/recettes/add'
+      liste: 'https://temporis-v.fr/api/recettes/liste',
+      ajout: 'https://temporis-v.fr/api/recettes/add'
     },
     logs: {
-      liste: '/api/logs/liste'
+      liste: 'https://temporis-v.fr/api/logs/liste'
     },
     twitch: {
       redirect_uri: 'https://www.temporis-v.fr'
     },
     auth: {
-      authorization: '/api/authorization'
+      authorization: 'https://temporis-v.fr/api/authorization'
     }
   }
 };
