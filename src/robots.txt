@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /*?begin*
+
+
+Sitemap: https://www.temporis-v.fr/sitemap.xml
